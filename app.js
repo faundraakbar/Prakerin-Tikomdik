@@ -4,6 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const cors = require('cors');
+const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const _ = require('lodash');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -18,6 +24,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//asd
+app.use(fileUpload({
+  createParentPath: true
+}));
+app.use(cors());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(morgan('dev'));
+
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
